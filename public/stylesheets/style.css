@@ -53,6 +53,7 @@ legend {
 }
 
 h4 a, h4 a:hover {
+  text-decoration: none;
   color: #fff;
 }
 
