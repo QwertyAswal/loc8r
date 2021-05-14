@@ -3,10 +3,10 @@ extends layout
 block content
   .row.banner 
     .col-12 
-      h1 Review Starcups 
+      h1 #{title} 
   .row 
     .col-12.col-md-8 
-      form(action="/location",method="get",role="form")
+      form(action="/location" method="get" role="form")
         .row 
           .form-group.row 
             label.col-10.col-sm-2.col-form-label(for="name") Name 
@@ -29,7 +29,7 @@ block content
           .form-group.row 
             label.col-10.col-sm-2.col-form-label(for="review") Review 
             .col-12.col-sm-10
-              textarea#revew.form-control(name="review",rows="5")
+              textarea#revew.form-control(name="review" rows="5")
         hr
         button.btn.btn-primary.float-end Add my review 
-        
+
