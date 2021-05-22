@@ -14,14 +14,20 @@ const openingTimeSchema = new mongoose.Schema({
 });
 
 const reviewSchema = new mongoose.Schema({
-    author: String,
+    author: {
+        type: String,
+        required: true
+    },
     rating: {
         type: Number,
         required: true,
         min: 0,
         max: 5
     },
-    reviewText: String,
+    reviewText: {
+        type: String,
+        required: true
+    },
     createdOn: {
         type: Date,
         default: Date.now()
@@ -49,7 +55,7 @@ const locationSchema = new mongoose.Schema({
     reviews: [reviewSchema]
 });
 
-locationSchema.index({ coords: '2dsphere' });
+locationSchema.index({ 'coords': '2dsphere' });
 
 const location = mongoose.model('location', locationSchema);
 

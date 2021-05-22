@@ -3,16 +3,17 @@ const loc = require('../models/locations');
 const locationsListByDistance = async (req, res) => {
     const lng = parseFloat(req.query.lng);
     const lat = parseFloat(req.query.lat);
-    const maxDistance = parseFloat(req.query.maxDis);
+    // const maxDistance = parseFloat(req.query.maxDis);
     const near = {
         type: 'Point',
         coordinates: [lng, lat]
     };
     const geoOptions = {
         distanceField: 'distance.calculated',
+        key: 'coords',
         spherical: true,
-        maxDistance,
-        limit: 10
+        maxDistance: 200000,
+        $limit: 10
     };
     try {
         const results = await loc.aggregate([
@@ -30,7 +31,7 @@ const locationsListByDistance = async (req, res) => {
                 address: result.address,
                 rating: result.rating,
                 facilities: result.facilities,
-                distance: `${result.distance.calculated.toFixed()}m`
+                distance: `${result.distance.calculated.toFixed()}`
             };
         });
         res.status(200).json(locations);
