@@ -45,7 +45,7 @@ const homeList = (req, res) => {
         qs: {
             lng: 71.92599,
             lat: 18.378091,
-            maxDis: 20
+            maxDis: 2000000000
         }
     };
     request(requestOptions, (err, response, body) => {

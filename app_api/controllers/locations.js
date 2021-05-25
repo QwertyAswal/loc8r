@@ -1,9 +1,11 @@
 const loc = require('../models/locations');
 
 const locationsListByDistance = async (req, res) => {
-    const lng = parseFloat(req.query.lng);
-    const lat = parseFloat(req.query.lat);
-    // const maxDistance = parseFloat(req.query.maxDis);
+    var lng = parseFloat(req.query.lng);
+    var lat = parseFloat(req.query.lat);
+    const maxDistance = parseFloat(req.query.maxDis);
+    lng = 72.3;
+    lat = 18.2;
     const near = {
         type: 'Point',
         coordinates: [lng, lat]
