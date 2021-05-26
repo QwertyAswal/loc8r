@@ -28,7 +28,7 @@ const locationsListByDistance = async (req, res) => {
         ]);
         const locations = results.map(result => {
             return {
-                id: result._id,
+                _id: result._id,
                 name: result.name,
                 address: result.address,
                 rating: result.rating,
@@ -78,7 +78,7 @@ const locationsReadOne = (req, res) => {
             return res.status(404).json({ 'message': 'location not found' });
         if (err)
             return res.status(404).json(err);
-        return res.status(200).json({ location });
+        return res.status(200).json(location);
     });
 };
 

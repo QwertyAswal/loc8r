@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 
-import { Location } from './home-list/home-list.component';
+import { Location, Review } from './location';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,16 @@ export class Loc8rDataService {
     const maxDistance: number = 200000;
     const url: string = `${this.apiBaseUrl}/locations?lng=${lng}&lat=${lat}&maxDis=${maxDistance}`;
     return this.http.get(url).toPromise().then(response => response as Location[]).catch(this.handleError);
+  }
+
+  public getLocationById(locationid: string): Promise<Location> {
+    const url = `${this.apiBaseUrl}/locations/${locationid}`;
+    return this.http.get(url).toPromise().then(response => response as Location).catch(this.handleError);
+  }
+
+  public addReviewById(locationid: string, formdata: Review): Promise<Review> {
+    const url: string = `${this.apiBaseUrl}/locations/${locationid}/reviews`;
+    return this.http.post(url, formdata).toPromise().then(response => response as Review).catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

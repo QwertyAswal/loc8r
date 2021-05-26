@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GeolocationService } from '../geolocation.service';
 import { Loc8rDataService } from '../loc8r-data.service';
+import { Location } from '../location';
 
-
-export class Location {
-  id: string;
-  name: string;
-  distance: number;
-  address: string;
-  rating: number;
-  facilities: string[];
-}
 
 @Component({
   selector: 'app-home-list',
@@ -26,9 +18,9 @@ export class HomeListComponent implements OnInit {
     this.message = 'Searching For Places Nearby';
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
-    this.loc8rDataService.getLocations(lat,lng).then(foundLocations => {
+    this.loc8rDataService.getLocations(lat, lng).then(foundLocations => {
       this.message = foundLocations.length > 0 ? '' : 'No Locations Found';
-      this.locations = foundLocations
+      this.locations = foundLocations;
     });
   }
 

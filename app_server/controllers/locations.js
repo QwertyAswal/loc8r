@@ -64,7 +64,7 @@ const renderPageDetails = (req, res, location) => {
     res.render('location-info', {
         title: location.name,
         sidebar: {
-            lead: 'Starcups is on Loc8r because it has accessible wifi and space to sit down with your laptop and get some work done.',
+            lead: location.name + ' is on Loc8r because it has accessible wifi and space to sit down with your laptop and get some work done.',
             text: 'If you\'ve been and like it - or if you don\'t - please leave a review to help other people just like you.'
         },
         location
@@ -95,11 +95,11 @@ const getLocationInfo = (req, res, callback) => {
         json: {}
     }
     request(requestOptions, (err, response, body) => {
-        let data = body.location;
+        let data = body;
         if (response.statusCode === 200) {
             data.coords = {
-                lng: body.location.coords.coordinates[0],
-                lat: body.location.coords.coordinates[1]
+                lng: body.coords.coordinates[0],
+                lat: body.coords.coordinates[1]
             }
             callback(req, res, data);
         }
