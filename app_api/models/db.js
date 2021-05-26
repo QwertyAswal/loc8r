@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 require('./locations')
+require('./users')
 
 const dbURI = 'mongodb://127.0.0.1:27017/loc8r';
 if (process.env.NODE_ENV === 'production') {

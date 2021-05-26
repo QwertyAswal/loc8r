@@ -1,10 +1,11 @@
 const loc = require('../models/locations');
 const { locationsCreate } = require('./locations');
+const User = require('../models/users');
 
-const doAddReview = (req, res, location) => {
+const doAddReview = (req, res, location, author) => {
     if (!location)
         return res.status(400).json({ 'message': 'Location not found' });
-    const { author, rating, reviewText } = req.body;
+    const { rating, reviewText } = req.body;
     location.reviews.push({
         author,
         rating,
@@ -46,19 +47,37 @@ const reviewsListByDistance = (req, res) => {
     res.status(200).json({ 'status': 'success' });
 };
 
-const reviewsCreate = (req, res) => {
-    const locationid = req.params.locationid;
-    if (locationid) {
-        loc.findById(locationid)
-            .select('reviews')
-            .exec((err, location) => {
-                if (err)
-                    return res.status(400).json(err);
-                doAddReview(req, res, location);
-            });
-    } else {
-        res.status(404).json({ 'message': 'Location not found' });
+
+const getAuthor = (req, res, callback) => {
+    if (req.payload && req.payload.email) {
+        User.findOne({ email: req.payload.email }).exec((err, user) => {
+            if (!user)
+                return res.status(404).json({ 'message': 'user not found' });
+            if (err)
+                return res.status(404).json(err);
+            callback(req, res, user.name);
+        });
     }
+    else {
+        return res.status(404).json({ 'message': 'user not found' });
+    }
+};
+
+const reviewsCreate = (req, res) => {
+    getAuthor(req, res, (req, res, username) => {
+        const locationid = req.params.locationid;
+        if (locationid) {
+            loc.findById(locationid)
+                .select('reviews')
+                .exec((err, location) => {
+                    if (err)
+                        return res.status(400).json(err);
+                    doAddReview(req, res, location, username);
+                });
+        } else {
+            res.status(404).json({ 'message': 'Location not found' });
+        }
+    });
 };
 
 const reviewsReadOne = (req, res) => {
