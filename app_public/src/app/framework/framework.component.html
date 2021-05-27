@@ -10,6 +10,23 @@
                     <a class="nav-link" routerLinkActive="active" routerLink="about">About</a>
                 </li>
             </ul>
+            <span class="navbar-nav justify-content-end">
+                <li class="nav-item" routerLinkActive='active'>
+                    <a routerLink='login' class="nav-link" *ngIf='!isLoggedIn()'>
+                        Sign In
+                    </a>
+                </li>
+                <li class="nav-item dropdown" routerLinkActive='active' *ngIf='isLoggedIn()'>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        {{getUsername()}}
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" (click)='doLogout()'>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+            </span>
         </div>
     </div>
 </nav>

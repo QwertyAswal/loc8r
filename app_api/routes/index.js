@@ -8,7 +8,7 @@ const router = express.Router();
 const auth = jwt({
     secret: process.env.JWT_SECRET,
     userProperty: 'payload',
-    algorithms: ['sha512']
+    algorithms: ['sha1', 'RS256', 'HS256']
 });
 
 router.post('/register', ctrlAuth.register);

@@ -1,0 +1,36 @@
+<app-pageheader [content]='pageContent.header'> </app-pageheader>
+<div class="row">
+    <div class="col-12 col-md-8">
+        <p class="lead">Not a member? Please <a routerLink='/register'>register</a> instead</p>
+        <form (submit)='onLoginSubmit()'>
+            <div role="alert" *ngIf='formError' class="alert alert-danger">
+                {{formError}}
+            </div>
+            <br>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="email">Email :</label>
+                <div class="col-sm-10 ">
+                    <input class="form-control" id='email' name='email' placeholder="Enter your email"
+                        [(ngModel)]='credentials.email'>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="password">Password :</label>
+                <div class="col-sm-10 ">
+                    <input class="form-control" type="password" id='password' name='password'
+                        placeholder="Enter your password" [(ngModel)]='credentials.password'>
+                </div>
+            </div>
+            <br>
+            <hr>
+            <button type="submit" role="button" class="btn btn-primary">
+                Sign In!
+            </button>
+            <br>
+            <br>
+        </form>
+    </div>
+
+    <app-sidebar class="col-12 col-md-4" [content]='pageContent.sidebar'></app-sidebar>
+</div>

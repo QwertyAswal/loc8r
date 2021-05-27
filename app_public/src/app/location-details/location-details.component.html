@@ -43,10 +43,11 @@
     <div class="row">
         <div class="col-12">
             <div class="card card-primary review-card">
-                <div class="card-block">
-                    <button (click)='formVisible=true' class="btn btn-primary float-end">
+                <div class="card-block" [ngSwitch]='isLoggedIn()'>
+                    <button (click)='formVisible=true' class="btn btn-primary float-end" *ngSwitchCase='true'>
                         Add Review
                     </button>
+                    <a routerLink='/login' class="btn btn-primary float-end" *ngSwitchDefault>Log in to write review</a>
                     <h2 class="card-title">Customer Reviews </h2>
                     <!--  -->
                     <div class="container" *ngIf='formVisible'>
@@ -56,15 +57,6 @@
                             <div *ngIf='formError' class="alert alert-danger" role="alert">
                                 {{formError}}
                             </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label" for="name">
-                                    Name
-                                </label>
-                                <div class="col-sm-10">
-                                    <input [(ngModel)]='review.author' class="form-control" id="name" name="name">
-                                </div>
-                            </div>
-                            <p></p>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label" for="rating">
                                     Rating
